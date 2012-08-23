@@ -1,0 +1,16 @@
+\chapter{Selbstständigkeitserklärung}
+Ich versichere, die von mir vorgelegte Arbeit selbständig verfasst zu haben. Alle
+Stellen, die wörtlich oder sinngemäß aus veröffentlichten oder nicht veröffentlichten
+Arbeiten anderer entnommen sind, habe ich als entnommen kenntlich gemacht.
+Sämtliche Quellen und Hilfsmittel sind angegeben. Die Arbeit hat mit gleichem bzw.
+in wesentlichen Teilen gleichem Inhalt noch keiner Prüfungsbehörde vorgelegen.
+
+%\vfill
+\vspace{cm}
+
+\begin{tabular}{lp{2em}l}
+ \hspace{5cm}   && \hspace{4cm} \\\cline{1-1}\cline{3-3}
+ Ort, Datum     && Unterschrift
+\end{tabular} 
+%\Unterschrift{Greifswald}{\today}{René Sodemann}
+

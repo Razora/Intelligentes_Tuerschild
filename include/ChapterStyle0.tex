@@ -1,0 +1,28 @@
+\makeatletter
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
+\def\@makechapterhead#1{%
+  \vspace*{10\p@}%
+  {\parindent \z@ \centering \reset@font
+        \thickhrulefill
+        \par\nobreak
+        \scshape \@chapapp{} \strut\thechapter
+        \par\nobreak
+        \interlinepenalty\@M
+        \hrule
+        \vspace*{10\p@}%
+        {\Huge \bfseries #1}\par\nobreak
+        \thickhrulefill
+        \vspace*{10\p@}%
+    \vskip 100\p@
+  }}
+\def\@makeschapterhead#1{%
+  \vspace*{10\p@}%
+  {\parindent \z@ \centering \reset@font
+        \thickhrulefill
+        \par\nobreak
+        {\Huge \bfseries \strut #1}\par\nobreak
+        \interlinepenalty\@M
+        \hrule
+        \vspace*{10\p@}%
+    \vskip 100\p@
+  }}

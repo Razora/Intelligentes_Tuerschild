@@ -1,0 +1,18 @@
+% Hier schreiben wir wer was gemacht hat
+
+\chapter*{Aufgabenverteilung}
+
+\begin{center}
+\begin{tabular}[t]{|>{\centering\arraybackslash}p{.3\textwidth}|>{\centering\arraybackslash}p{.3\textwidth}|>{\centering\arraybackslash}p{.3\textwidth}|}
+\hline
+Aufgabe & René Sodemann & Stefan Taute\\
+\hline
+Erstellung der Software und der dazugehörigen Skripte & X & \\
+\hline
+Ausarbeitung eines Konzepts für die Netzwerkeinbindung des Türschilds  &  & X\\
+\hline
+Erstellung der schriftlichen Ausarbeitung & X & X\\
+\hline
+\end{tabular}
+\end{center}
+

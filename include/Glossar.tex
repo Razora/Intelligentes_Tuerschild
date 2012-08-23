@@ -1,0 +1,39 @@
+% globale glossardatei 
+
+% glossar package initialisierung 
+\usepackage[
+nonumberlist, %keine Seitenzahlen anzeigen
+acronym,      %ein Abkürzungsverzeichnis erstellen
+toc,          %Einträge im Inhaltsverzeichnis
+section]      %im Inhaltsverzeichnis auf section-Ebene erscheinen
+{glossaries}
+
+% entfernt den punkt nach der glossar beschreibung
+\renewcommand*{\glspostdescription}{}
+
+\newglossary[slg]{symbolslist}{syi}{syg}{Symbolverzeichnis}
+
+\makeglossaries
+
+%% NOTE: wenn die einträge nicht referenziert werden gibt es auch keinen eintrag im glossar
+
+\newglossaryentry{symb:Pi}{
+    name=$\pi$,
+    description={Die Kreiszahl.},
+    sort=symbolpi, type=symbolslist
+}
+\newacronym{MS}{MS}{Microsoft}
+
+%\newglossaryentry{symb:Pi}{
+%name=$\pi$,
+%description={Die Kreiszahl.},
+%sort=symbolpi, type=symbolslist
+%}
+% oder 
+
+% \newacronym{MS}{MS}{Microsoft}
+% \newacronym{AD}{AD}{Active Directory\protect\glsadd{glos:AD}}
+% \gls{AD}
+
+
+

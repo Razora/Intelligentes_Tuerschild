@@ -1,0 +1,48 @@
+\chapter{Gebrauchsanweisung}
+\vspace*{-3cm}
+\begin{flushleft}
+In diesem Kapitel werden die Funktionen erläutert, die die mitgelieferte Software bietet. Dabei erfolgt eine Unterteilung in die Erstellung von Notizen und die Wartung bzw. Inbetriebnahme des Xelio-Tablets. Weiterhin wird die für die Umsetzung des Projekts nötige Treiberinstallation erklärt. 
+
+\section{Installieren des Treibers}
+% TODO USB-Debugging aktivieren erwähnen
+
+\section{Bedienung der Software}
+\subsection{Erstellung einer Notiz}
+Um für das Tablet eine Nachricht zu erzeugen, muss die eigentliche Textnachricht in eine Bilddatei umgewandelt werden. Um diese Umwandlung zu vollziehen kann die mitgegebene Software genutzt werden. Dafür müssen folgende Schritte durchgeführt werden:
+\begin{itemize}
+  \item Klicken sie auf den Button ``Vorlage wählen''.
+    \subitem Es öffnet sich nun ein Dialog für die Auswahl einer Bilddatei. Diese wird später der Hintergrund sein, auf dem sich die 			 Nachricht befindet. Bestätigen Sie ihre Auswahl mit ``öffnen''.
+    \subitem Es wurde nun der Dateipfad zum Hintergrund in das entsprechende Textfeld eingetragen. 
+    
+  \item Im Feld ``Nachricht'' geben Sie nun die Nachricht ein, die auf dem Tablet erscheinen soll. 
+    \subitem Hinweis: Es können bei der Eingabe selbstständig Zeilenumbrüche vorgenommen werden. Jedoch erfolgt seitens der Software noch 	  	 eine Kontrolle ob die eingegebene Nachricht für das Bild passend ist. Sollte dies nicht der Fall sein, werden weitere 	
+	     Zeilenumbrüche eingefügt.  
+	     
+  \item Im nächsten Schritt kann nun mit Hilfe der Combobox die Schriftgröße der zu erscheinenden Nachricht eingestellt werden. 
+  
+  \item Sie können sich nun vor dem eigentlichen Erstellen der benötigten Bilddatei noch eine Vorschau der Notiz zeigen lassen. Dazu drücken   
+        Sie auf den Button ``Vorschau anzeigen''. Es erscheint nun ein Fenster mit der Vorschau, welches Sie nach der Betrachtung wieder schließen können.
+        
+  \item Es können nun noch Veränderungen an der Nachricht vorgenommen werden. Entspricht die Notiz den Anforderungen kann mit einem Klick 	
+	auf den Button ``Notiz erstellen'' ein Dialog zum Speichern der Bilddatei aufgerufen werden. Es muss nun ein Speicherort bestimmt werden und die Datei muss benannt werden. 
+	
+  \item Nun kann die Datei auf das Tablet übertragen werden und daraufhin auf dem Tablet angezeigt. 
+\end{itemize}
+
+Im nun folgenden Abschnitt wird der zweite Teil der Software genauer vorgestellt.
+
+\subsection{Softwareinstallation und Wartung}
+In diesem Absatz werden die Funktionen der vier verschiedenen Buttons im unteren Bereich der Software erklärt.
+
+\begin{itemize}
+  \item Button ``Xelio Rooten''
+    \subitem Ist das Xelio an den PC angeschlossen und ist das USB-Debugging aktiviert, kann mit einem Klick auf den Button das Rooting des 	
+	     Tablets starten. Während dieses Vorgangs kommt es zu einem Neustart des Geräts. Danach besitzt man Root-Zugang auf dem Xelio.
+	     
+  \item Button ``Software installieren''
+    \subitem Nachdem das Tablet gerootet wurde, kann nun die Installation der nötigen Software erfolgen. Dies geschieht mit diesem Button. 
+\end{itemize}
+
+
+\section{Vorzunehmende Einstellungen am Tablet} 
+\end{flushleft}

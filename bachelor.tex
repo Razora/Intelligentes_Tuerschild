@@ -1,0 +1,92 @@
+
+%
+% Vorgehen : 
+%           Darauf los schreiben
+%           Ideen sammeln
+%           Ordnen
+%           Struktorieren
+%           Einleitung
+%           Überschrift suchen
+%
+
+\documentclass[bibtotoc,liststotoc,BCOR5mm,DIV12]{scrbook}
+\usepackage{bibgerm}       % deutsche Literaturverzeichnisse
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx} % Einfügen von Grafiken  - für PDF-Latex: .pdf und .png (.jpg möglich, sollte aber vermieden werden)
+\usepackage{url}           % URL's (z.B. in Literatur) schöner formatieren
+\usepackage[T1]{fontenc}
+\usepackage{array}
+\usepackage[none]{hyphenat}
+
+
+%% Graphiken hier rein
+\graphicspath{{./Bilder/}}
+
+% ------------------------------------------------------------------------------
+% \input{hyphenation} % in dieses File kommen Wörter die Latex nicht richtig trennt
+
+%--------------------- globale includes 
+\input{./include/Hyperref}
+\input{./include/Glossar}
+\input{./include/TitlePageStyle0}
+\input{./include/SectionStyle0}
+\input{./include/ChapterStyle2}
+\input{./include/Listing}
+
+%--------------------- lokale includes 
+\include{glossarTooth}
+
+
+\title{Projektarbeit}
+\author{René Sodemann und Stefan Taute}
+\date{today\setcounter{page}{0}\clearpage}
+
+% --------------------------------------------------------------- BEGIN
+\begin{document}
+
+\raggedright
+\frontmatter % Titelblätter und Erklärung jeweils spezifisch für die jeweilige Uni einbinden
+    \include{Titelseite}
+    \tableofcontents 
+    \include{Uebersicht_Verantwortlichkeiten}
+    \include{Abstract} 
+
+\mainmatter % die eigentliche Arbeit
+
+%% TODO der von der Fh vorgegebene aufbau ist 
+%% aufgabensstellung Thema
+%% gliederung der aufgabe mit angaber der Seitenzahl
+%% Textteil
+%% zusammenfassung der einzelergebnisse
+%% zusammenfassung aller formelzeichen 
+%% Literaturverzeichniss
+
+    \include{Einleitung}
+    \include{Grundlagen}
+    \include{Stand}
+    \include{Entwurf}
+    \include{Implementation}
+    \include{Leistungsbewertung}
+    \include{Schlussfolgerung}    
+    \include{Zusammenfassung}
+    \include{Gebrauchsanweisung}
+
+\backmatter % ab hier keine Nummerierung mehr
+    \listoffigures
+    \bibliographystyle{geralpha}
+    %% TODO testen ob nicht am anfang besser is
+    % glossar
+    \printglossary[style=altlist,title=Glossar]
+    % abkürzungen
+    % TODO \deftranslation[to=German]{Acronyms}{Abkürzungsverzeichnis}
+    \printglossary[type=\acronymtype,style=long]
+    % symbole
+    \printglossary[type=symbolslist,style=long]
+    % TODO bib daten in ordner
+    %\bibliography{./Bib/stud77}
+    \include{Selbststaendig} 
+
+\end{document}
+
+% --------------------------------------------------------------- END

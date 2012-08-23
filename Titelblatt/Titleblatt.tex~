@@ -1,0 +1,81 @@
+\documentclass[a4paper]{article}
+\usepackage[latin1]{inputenc}  \usepackage[T1]{fontenc}
+\usepackage{lmodern}           \usepackage[ngerman]{babel}
+\usepackage{graphicx}
+
+
+\title{Entwicklung einer Schnittstelle zwischen dem Course-Management-System ``Moodle'' und dem HochschulInformationssystem-Moduls ``LSF'' der Universität Greifswald.}
+\author{\textbf{\large Bachelorarbeit}}% oder Bachelorarbeit
+%\date{zur Erlangung des Grades %%%  zutreffendes einkommentieren
+%%eines Diplom-Wirtschaftsingenieurs\\ 
+%%einer Diplom-Wirtschaftsingenieurin\\
+%%einer Diplom-Ökonomin\\%                weibliche Form
+%eines Diplom-Ökonomen\\
+%Bachelor of Science Informatik\\
+%der
+%%Fakultät für Elektrotechnik und Informatik, Fakultät für Maschinenbau und\\
+%Wirtschaftswissenschaftlichen Fakultät\\ 
+%Fakultät für Elektrotechnik und Informatik\\
+%der Leibniz Universität Hannover}
+%der Fachhochschule Stralsund}
+
+%\date{zur Erlangung des Grades
+%%eines Diplom-Wirtschaftsingenieures\\%  zutreffendes einkommentieren
+%%eines Diplom-Wirtschaftsingenieures\\%
+%%einer Diplom-Ökonomin\\%                weibliche Form
+%Bachelor of Science Informatik\\
+%eines Diplom-Ökonomen\\
+%der Fakultät für Elektrotechnik und Informatik\\
+%  der Wirtschaftswissenschaftlichen Fakultät\\ 
+%  der Leibniz Universität Hannover}
+%  der Fachhochschule Stralsund}
+\begin{document}
+\maketitle\thispagestyle{empty}
+
+\begin{figure}[!]
+    \centering
+    \includegraphics[width=.8\textwidth]{ETI_logo.jpg} % PNG-File
+\end{figure}
+
+\begin{center}
+vorgelegt von
+
+\vspace{\baselineskip}
+
+Name: Sodemann \quad Vorname: René
+
+\vspace{\baselineskip}
+
+Geb. am: 22.02.1990 \quad in: Bergen auf Rügen
+
+\vspace{2\baselineskip}
+
+Erstprüfer: Prof. Dr. rer. nat. Christian Bunse
+
+\vspace{3\baselineskip}
+
+Greifswald, den \today\setcounter{page}{0}\clearpage
+\end{center}
+
+% ab hier kommt der Text, üblich sind Inhaltsverzeichnis,
+% und weitere Verzeichnisse \listoffigures \listoftables
+
+% Am ende die ehrenwörtliche Erklärung 
+% auf einer neuen Seite ohne Nummer
+
+
+%\clearpage\thispagestyle{empty}
+%\begin{center}\textbf{\large Erklärung}\end{center}
+
+%\noindent
+%Hiermit versichere ich, dass ich die vorliegende Arbeit selbstständig verfasst
+%und keine anderen als die angegebenen Quellen und Hilfsmittel benutzt habe,
+%dass alle Stellen der Arbeit, die wörtlich oder sinngemäß aus anderen Quellen
+%übernommen wurden, als solche kenntlich gemacht sind und dass die Arbeit in
+%gleicher oder ähnlicher Form noch keiner Prüfungsbehörde vorgelegt wurde.
+
+%\vspace{4\baselineskip}
+
+%\noindent
+%Hannover, den \today \qquad Hierher die Unterschrift 
+\end{document}
