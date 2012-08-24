@@ -17,7 +17,6 @@
 \usepackage{url}           % URL's (z.B. in Literatur) schöner formatieren
 \usepackage[T1]{fontenc}
 \usepackage{array}
-
 \usepackage[none]{hyphenat}
 
 
