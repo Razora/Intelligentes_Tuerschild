@@ -10,7 +10,7 @@
 %
 
 \documentclass[bibtotoc,liststotoc,BCOR5mm,DIV12]{scrbook}
-\usepackage{bibgerm}       % deutsche Literaturverzeichnisse
+\usepackage{babelbib}       % deutsche Literaturverzeichnisse
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 \usepackage{graphicx} % Einfügen von Grafiken  - für PDF-Latex: .pdf und .png (.jpg möglich, sollte aber vermieden werden)
