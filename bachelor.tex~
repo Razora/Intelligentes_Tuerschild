@@ -85,7 +85,7 @@
     \printglossary[type=symbolslist,style=long]
     % TODO bib daten in ordner
     %\bibliography{./Bib/stud77}
-    \include{Selbststaendig} 
+    %\include{Selbststaendig} 
 
 \end{document}
 
