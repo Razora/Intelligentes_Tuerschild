@@ -1,0 +1,82 @@
+\chapter{Anforderungsdefinition} % (fold)
+\label{sec:Anforderungen}
+\vspace{-3cm}
+\begin{flushleft}
+In diesem Kapitel wird erläutert welche Ansprüche von der Universität Greifswald an die Software gestellt werden.
+Dazu werden die funktionalen in Form von ``User Stories'' beschrieben und die nichtfunktionalen Anforderungen werden durch ISO/IEC 9126 (siehe \cite{ISO9126} und \cite{ISO}) beschrieben.
+% Dazu werden die funktionalen Anforderungen durch ``Use cases'' beschrieben und 
+% die nichtfunktionalen Anforderungen werden durch \gls{ISOSQ} beschrieben.
+
+
+\section{Funktionale Anforderungen} % (fold)
+\label{sec:Funktionale Anforderungen}
+
+\input{UseCases}
+
+%TODO was einfügen
+% section Funktionale Anforderungen (end)
+ \newpage
+\section{Nichtfunktionale Anforderungen} % (fold)
+\label{sec:Nichtfunktionale Anforderungen}
+
+\subsection{Funktionalität} % (fold)
+\label{sub:Funktionalitaet}
+
+Die Software muss dazu in der Lage sein des Qualitätsmerkmal der ``Richtigkeit'' in dem Sinne zu erfüllen, dass die Anwendung Informationen so in 
+die Datenbestände einträgt, wie es ein Nutzer der Systeme tut.
+
+Weiterhin muss die Software das Merkmal der ``Interoperabilität'' soweit erfüllen, dass sie keine Auswirkungen auf die angeschlossenen Systeme in Bezug auf 
+Stabilität und Verfügbarkeit hat. 
+% Die Software muss dazu in der Lage sein des Qualitätsmerkmal der ``Richtigkeit'' in dem Sinne zu erfüllen,
+% dass die Anwendung vergleichbare Ergebnisse liefert wie es behandlungen an Menschen erbracht haben. (Toleranz von 1 mm Abweichung ) 
+% Weitreichendere Anforderungen an Interoperabilität, Sicherheit und Ordnungsmäßigkeit müssen nicht erfüllt werden.
+% subsection Funktionalität (end)
+
+\subsection{Zuverlässigkeit} % (fold)
+\label{sub:Zuverlaessigkeit}
+
+Die Software soll über eine gewisse ``Reife'' verfügen. 
+Im Speziellen heißt es, dass es nur in einen von zehn Szenarien zu Ausfällen kommt.
+Die Software sollte bei einem Fehler eine Mitteilung bereitstellen, damit ein Verantwortlicher der Universität darauf reagieren kann. 
+% subsection Zuverlässigkeit (end)
+
+\subsection{Benutzbarkeit} % (fold)
+\label{sub:Benutzbarkeit}
+
+Die Software muss einfach verständlich sein ( ``Verständlichkeit'' ) und sich einfach Erlernen lassen (``Erlernbarkeit'').
+Eine einfache Benutzung steht dabei im Vordergrund ( ``Benutzbarkeit'' ), hingegen soll ``Attraktivität'' nur soweit gewährleistet sein,
+dass sie die ``Verständlichkeit'' positiv beeinflusst. 
+
+Es ist jedoch auch möglich, dass die Software ohne den Einfluss eines Nutzers arbeitet. Dann sind die oben genannten Punkte nicht relevant. 
+
+% subsection Benutzbarkeit (end)
+
+\subsection{Effizienz} % (fold)
+\label{sub:Effizienz}
+
+Das ``Verbrauchsverhalten'' der Softwarelösung sollte so sein, dass diese die Server so wenig belastet wie möglich.
+Da jedoch noch kein Server definiert wurde, auf dem die Anwendung arbeiten soll, können keine Werte für eine genaue Konfiguration
+angegeben werden.
+% Das ``Verbrauchsverhalten'' der Softwarelösung sollte so sein, 
+% dass das fertige Programm auf einem durchschnittlichen Computer ( CPU: 2,6 GHz RAM: 2Gb ) lauffähig ist.
+% Dabei ist die Antwortzeit des Systems sollte bei einer durchschnittlichen Maschine nicht länger als 0.5 sek betragen.
+% subsection Effizienz (end)
+
+\subsection{Wartbarkeit} % (fold)
+\label{sub:Wartbarkeit}
+
+Es soll die Möglichkeit bestehen, leicht neue Funktionen zur Software hinzuzufügen ohne den konzeptionellen Aufbau der Software zu verändern. 
+% subsection Wartbarkeit (end)
+
+\subsection{Übertragbarkeit} % (fold)
+\label{sub:Übertragbarkeit}
+
+Auf die Qualitätsanforderung ``Übertragbarkeit'' soll in dem Sinne eingegangen werden, dass die Software auf Linux und Windows lauffähig ist ( ``Anpassbarkeit'' ).
+
+% subsection Übertragbarkeit (end)
+% section Nichtfunktionale Anforderungen (end)
+
+% chapter Anforderungsdefinition (end)
+ 
+\end{flushleft}
+
