@@ -51,18 +51,41 @@ In diesem Absatz werden die Funktionen der vier verschiedenen Buttons im unteren
 
 \section{Bedienung der Verwaltungsapplikation auf dem Tablet}
   Nachdem das Tablet durch die entwickelte Verwaltungssoftware für den PC vorbereitet und außerdem ein entsprechender Samba-Server eingerichtet wurde, kann es nun auf dem Tablet weitergehen.
-  \subsection{Konfigurieren des WLAN}
+  \begin{itemize}
+  \item{Konfigurieren des WLAN}
     Auf dem Tablet muss zunächst das WLAN konfiguriert werden.
     \begin{itemize}
       \item Klicken sie in der unteren rechte Ecke des Touchscreens auf die Uhr. Dort sollte sich ein Popup-Dialog öffnen.
       \item Dort klicken sie bitte auf das obere Feld mit der Uhr, daraufhin sollte sich der Dialog aktuallisieren.
       \item Hier kann man nun auf die Schaltfläche ``WLAN'' klicken, worauf sie in die WLAN-Einstellungen gelangen.
       \item Auf der rechten Seite sind nun die gefundenen WLAN-Netzwerke zusehen, falls nicht müssen sie auf der linken Seite den WLAN-Schalter auf ``AN'' stellen.
-      \item Nachdem sie sich im korrekten WLAN angemeldet haben, können sie in der unteren linken Ecke auf die Zurück-Schaltfläche klicken.
+      \item Nachdem sie sich im WLAN mit vorhandenen Samba-Server angemeldet haben, können sie in der unteren linken Ecke auf die Zurück-Schaltfläche klicken.
     \end{itemize}
-\subsection{Konfigurieren der Applikation - PCFileSync}
-\subsection{Konfigurieren der Applikation - NoLock}
-\subsection{Konfigurieren der Applikation - PhotoFrameApp}
-\subsection{Statusbar verstecken}
-\subsection{Standby-Service konfigurieren}
+  \end{itemize}
+  Die restlichen Einstellungen können nun über die entwickelte Verwaltungs-Applikation ``InteligentDoorplateControl'' vorgenommen werden.
+  \subsection{Konfigurieren der Applikation - NoLock}
+    Die NoLock-Applikation dient dazu, zu verhindern das das Tablet nach dem Bildschirm ausschalten den Lockscreen aktiviert.
+    \begin{itemize}
+      \item Starten sie die App mittels der Schaltfläche ``Start NoLock-App to configure''.
+      \item Falls dort noch ``Lock enabled'' klicken sie einmal dort drauf und schon sollte dort ``Lock disabled'' erscheinen, womit der Lockscreen abgeschaltet wurde.
+      \item Falls dort schon ``Lock disabled'' zu sehen ist, ist der Lockscreen bereits deaktiviert. Das liegt daran das die nur einmal gemacht werden muss, solangen das Tablet nicht zurückgesetzt wird.
+    \end{itemize}
+  \subsection{Konfigurieren der Applikation - PCFileSync}
+  Die PCFileSync-Applikation dient dazu, ein bestimmtes Verzeichnis mit einer entsprechenden Netzwerkfreigabe, die in diesem Projekt über das SMB-Protokoll realisiert wird, zu synchronisieren.
+    \begin{itemize}
+      \item
+    \end{itemize}
+  \subsection{Konfigurieren der Applikation - PhotoFrameApp}
+  	Die PhotoFrame-Applikation dient dazu, das das die Bilder aus dem Synchronisierten-Verzeichnis mittels eine Diashow ausgibt.
+    \begin{itemize}
+      \item
+    \end{itemize}
+  \subsection{Standby-Service konfigurieren}
+    Der Standby-Service wurde dazu entwickelt, das Tablet zu bestimmten Zeiten aus dem Standby aufzuwecken bzw. in den Standbymodus zu versetzen.
+    \begin{itemize}
+      \item In der rechten Spalte der IDC-App haben wir zwei Felder zum eingeben der Wake-UP- und Sleep-Time. Diese müssen dem vorgegebenen Format entsprechen und müssen ausserdem mit einer führenden 0 beginnen falls die Stunden einstellig sind.
+      \item Danach können sie über den Button ``Start Standby \& NoTouch Service'' den Service starten.
+      \item Nach dem Start des Service haben sie noch ca. 5 Minuten bis der Touchscreen gesperrt wird. Danach ist das Tablet nur noch durch einen Neustart wieder normal zu verwenden.
+    \end{itemize}
+    In der verbleibenden Zeitspanne, muss nun endgültig die PhotoFrameApp gestartet und die Diashow ausgeführt werden. Daraufhin ist das Tablet nun so konfiguriert, das es sich mit dem gewählten Verzechnis synchronisiert, eine Diashow dessen Inhalt ausgeben wird, es nicht von unbefugten benutzt werden kann und es sich zu bestimmten Zeiten in den Standbymodus versetzt und darauf auch wieder erwacht.
 \end{flushleft}
