@@ -22,7 +22,7 @@ Diese Ausarbeitung und deren Ergebnisse werden in den folgenden Passagen genauer
 \subsection{Grundidee}
 Für die Umsetzung des Projekts ist das bereits vorhandene Grundkonzept des energiesparenden PCs welcher mit einem Bildschirm in ein Gehäuse verbaut ist, die beste Grundlage. Jedoch ist es nicht möglich, die bereits fertigen Lösungen einzusetzen, da diese sehr kostenintensiv und unflexibel sind. Somit muss eine Abwandlung dieses Konzeptes entwickelt werden, um es für die Fachhochschule Stralsund einsatzfähig zu machen. 
 
-\subsection{Nutzung eines digitalen Bilderrahmens als Türschild} \label{subsec:nutzungBilderrahmen}
+\subsection{Nutzung eines digitalen Bilderrahmens als Türschild}
 Die erste hier gezeigte Umsetzung ist es, die Grundidee mit Hilfe eines digitalen Bilderrahmens umzusetzen. Die Entscheidung dafür fiel unter anderem, weil zwei Geräte der Marke ``Kodak'' (Modell: W1030) bereits in der Fachhochschule vorhanden waren und es auch weitere Modelle gibt, die kostengünstig zu erhalten sind. Bei den zwei vorhandenen Bilderrahmen handelt es sich um Bilderrahmen mit der ``Pulse''-Funktion. 
 
 Moderne digitale Bilderrahmen haben einen großen Funktionsumfang. Sie besitzen ,je nach Modell, neben der Fähigkeit der Darstellung von Bildern auch die Wiedergabe Videos und Audioaufnahmen. Um die Verwaltung der Geräte zu vereinfachen bauen die Hersteller eine WLAN-Schnittstelle in die Geräte ein. Somit bietet ein digitaler Bilderrahmen die Voraussetzungen, um auch als digitales Türschild eingesetzt zu werden. 
@@ -39,30 +39,7 @@ So entstand die Idee nach einem anderen Gerät zu suchen, welches kostengünstig
 Die Umsetzung mit Hilfe eines Tablets wird im nächsten Abschnitt genauer beschrieben. 
 
 \subsection{Nutzung eines Android-Tablets als Türschild}
-Wie breits im vorherigen Abschnitt erwähnt, muss eine Alternative gefunden werden, die weitere Schnittstellen zur Verfügung stellt. Das beste Preis-/Leistungsverhältnis dafür bietet ein Tablet-PC auf Android-Basis. Diese bieten die Möglichkeit bei entsprechender Hardware alle nötigen Änderungen vorzunehmen. Es stellt sich nun die Frage, welche Hardwarekomponenten in einem solchen Tablet verbaut sein müssen. Im speziellen Falle des Projektes ist es vollkommen ausreichend, wenn eine WLAN-Schnittstelle vorhanden ist. Alle weiteren nötigen Schritte können dann mit Hilfe von Software durchgeführt werden. 
-Im nächsten Schritt muss nun entschieden werden, welche Funktionen das Tablet bereitstellen muss, um als Bilderrahmen eingesetzt werden zu können. Dafür muss jedoch festgelegt werden, welche Version des Android-Betriebssystems eingesetzt werden soll, denn diese ist entscheidend dafür, welche Software auf dem Gerät lauffähig ist und welche nicht und welches Tablet dann gewählt wird. Um eine die größtmögliche Aktualität der Software gewährleisten zu können, sollte das Tablet mindestens die Android-Version 4.0 unterstützen. Durch die Festlegung dieser Eigenschaft wird gleichzeitig die Anzahl der möglichen Geräte eingeschränkt. Somit muss das Tablet nun eine W-LAN-Schnittstelle bieten, mit Android 4.0 arbeiten und sollte in der Anschaffung um 100 Euro liegen. Nach einiger Recherche fiel die Entscheidung auf das ``Odys Xelio''. Dieses Android-Tablet erfüllt somit alle Voraussetzungen, um als Ersatz für den Bilderrahmen zu dienen. 
-Nun müssen dem Tablet die nötigen Funktionen mit Hilfe von Software beigebracht werden. Es werden für den Einsatz folgende Funktionen benötigt:
-\begin{itemize}
-  \item das Tablet muss gegen unbefugte Eingaben von Dritten geschützt werden
-  \item das Tablet muss in der Lage sein eine Fotopräsentation darzustellen
-  \item das Tablet muss die Möglichkeit bieten, Bildmaterial von einer entfernten Quelle beziehen zu können
-  \item das Tablet sollte so stromsparend wie möglich arbeiten
-\end{itemize}
 
-Diese Anforderungen müssen nun noch weiter präzisiert werden, denn nur so ist es möglich die richtigen Softwarekomponenten für den Produktiveinsatz auszuwählen. 
-In Bezug auf den Punkt ``Verhindern von unbefugten Eingaben von Dritten'' bedeutet dies, dass jegliche Eingabemöglichkeit über das Touchdisplay verhindert werden muss, sobald eine Photopräsentation aktiviert ist. Da jedoch danach immer noch die Möglichkeit besteht mit Hilfe der Hardwaretasten des Odys Xelio zu navigieren, müssen diese ebenfalls deaktiviert werden. Somit ist gewährleistet, dass ein Außenstehender keine Mittel besitzt Einstellungen am Tablet zu verändern. 
-
-Die Funktionalität der Darstellung einer Fotopräsentation ist deswegen notwendig, da die gezeigten Informationen als Bilddatei vorliegen. Somit muss das Tablet aus einer gegebenen Quelle die Dateien lesen und diese dann über den Bildschirm wiedergeben.
-
-Die zuvor angesprochene Quelle besitzt dabei jedoch eine besondere Eigenschaft. Diese soll sich nämlich nicht direkt auf dem Tablet, sondern      
-auf einem externen Medium befinden. Das Tablet selbst soll diese auslesen und dann, wenn es für die Ausführung nötig ist, zwischenspeichern und daraufhin wiedergeben.
-
-Der letzte angesprochene Punkt ist der Energieverbrauch des Gerätes. Da die dargestellten Informationen nicht 24 Stunden pro Tag zugänglich sein müssen, soll eine Möglichkeit geschaffen werden, den Energieverbrauch in einem bestimmten Zeitrahmen zu senken. Ein Beispiel dafür wäre, dass der Bildschirm sich in den Stunden von 21 Uhr bis 7 Uhr ausschaltet oder dass das Gerät in diesen Stunden in einen energiesparenden Modus wechselt. 
-
-All diese genannten Funktionen bietet das Odys Xelio jedoch nicht in seiner Standardkonfiguration. Es muss also noch mit Hilfe von weiteren Softwareprodukten diese Funktionalitäten geschaffen werden. Welche Software bzw. Techniken das im einzelnen ist, wird im nächsten Abschnitt genauer beschrieben. 
-%danach anforderungen spezifizieren
-%erklären, dass das tablet das so nicht kann
-%hinweis darauf, dass im nächsten abschnitt darauf eingegangen wird
 \end{flushleft}
 
 % st das zentrale Kapitel der Arbeit. Hier werden das Ziel sowie die eigenen Ideen, Wertungen, Entwurfsentscheidungen vorgebracht. Es kann sich lohnen, verschiedene Möglichkeiten durchzuspielen und dann explizit zu begründen, warum man sich für eine bestimmte entschieden hat. Dieses Kapitel sollte - zumindest in Stichworten - schon bei den ersten Festlegungen eines Entwurfs skizziert und in Stichworten geschrieben werden. Es wird sich aber in einer normal verlaufenden Arbeit dauernd etwas daran ändern. Das Kapitel darf nicht zu detailliert werden, sonst langweilt sich der Leser. Es ist sehr wichtig, das richtige Abstraktionsniveau zu finden. Bei der Verfassung sollte man auf die Wiederverwendbarkeit des Textes achten.
