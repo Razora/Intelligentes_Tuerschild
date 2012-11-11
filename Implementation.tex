@@ -25,12 +25,35 @@
     \end{enumerate}
     Damit sollte der Bilderrahmen sich nun eigentlich am angelegten Webserver Authentifizieren können und man somit Bilder auf den Bilderrahmen bringen kann. Da die Firmware auf dem verwendeten Rahmen, aber nun doch den Hostnamen mit dem SSL-Zertifikat vergleichen will, klappt dies leider nicht. Da erstens der Hostnamen nicht mit dem SSL-Zertifikat übereinstimmen kann und zweitens hat der Server gar kein Zertifikat hinterlegt. Es wurde auch versucht verschiedene SSL-Zertifikate zu hinterlegen, was aber nicht den gewünschten Erfolg brachte. Das führte zu einer weiteren Überlegung ein Tool namens SSL-Strip zu nutzen.
   \subsection{Umgeleitete Anfragen durch das Tool SSL-Strip schicken}
-    Um mit dem Tool SSL-Strip zu arbeiten ist die vorher beschriebene Konfiguration ebenfalls notwendig. Hinzu kommt nun in unserem Fall noch eine Virtuelle Maschine. Diese wurde mit einem vorgefertigten Image namens BackTrack erstellt. Dieses Linux-Image enthält viele Tools, um ein Netzwerk zu ``Sniffen''. Unter anderem enthält die VM auch das Tool SSL-Strip. Das Tool dient dazu einen empfangen Netzwerkverkehr auf HTTPS angaben zu durchsuchen und die mit HTTP zu ersetzen, somit ist es möglich z.B. GMAIL oder auch PAYPAl Anmeldedaten im Klartext mit zu lesen. Die VM muss nun natürlich erstmal so konfiguriert werden das sie im gleichen Adressbereich wie der Router und Bilderrahmen hängt. Daraufhin muss nun die VM darauf vorbereitet werden den IPv4 Netzwerkverkehr komplett zu empfangen und auch wieder weiterzuleiten (IPv4-Forwarding). Wie man vllt. erkennen kann, versuchen wir jetzt einen Man-in-the-Middle Angriff durchzuführen, um somit die SSL-Verschlüsselung des Rahmens zu umgehen.
-    Vorgehen:\\
+    Um mit dem Tool SSL-Strip zu arbeiten ist die vorher beschriebene Konfiguration ebenfalls notwendig. Hinzu kommt nun in unserem Fall noch eine Virtuelle Maschine. Diese wurde mit einem vorgefertigten Image namens BackTrack erstellt. Dieses Linux-Image enthält viele Tools, um ein Netzwerk zu ``Sniffen''. Unter anderem enthält die VM auch das Tool SSL-Strip.
+    
+    Das Tool dient dazu einen empfangenen Netzwerkverkehr auf HTTPS Pakete zu durchsuchen und die mit HTTP zu ersetzen, somit ist es möglich z.B. GMAIL oder auch PAYPAl Anmeldedaten im Klartext mit zu lesen. Außerdem, was für unseren Einsatz wesentlich wichtiger ist, werden die Pakete so manipuliert weitergeschickt. Dadurch haben wir vermutet können wir den Bilderrahmen austricksen, was aber letztendlich auch nicht zum Erfolg führte.
+    
+    Die VM muss nun natürlich erstmal so konfiguriert werden das sie im gleichen Adressbereich wie der Router und Bilderrahmen hängt. Daraufhin muss nun die VM darauf vorbereitet werden den IPv4 Netzwerkverkehr komplett zu empfangen und auch wieder weiterzuleiten (IPv4-Forwarding).\par Wie man vllt. erkennen kann, versuchen wir jetzt einen Man-in-the-Middle Angriff durchzuführen, um somit die SSL-Verschlüsselung des Rahmens zu umgehen.\vspace{.3cm}
+    
+    \underline{Vorgehen:}\\
     \begin{itemize}
     \item Als erstes müssen wir IPv4-Forwarding aktivieren. Das geht unter Linux sehr einfach, in der Datei ``/proc/sys/net/ipv4/ip\_forward'' steht im normalfall eine ``0'' d.h. das IPv4-Forwarding deaktiviert ist. An diese Stelle muss nun eine ``1'' um das Forwarding zu aktivieren. Dazu schreibt man entweder mit einem Rootfähigen Editor eine ``1'' in die Datei bzw. führt mit Rootrechten in einem Terminal folgenden Befehl aus, der ebenfalls die ``1'' in die Datei schreibt.\\\vspace{.3cm}
-    \verb+echo 1 > /proc/sys/net/ipv4/ip_forward+
+    \begin{center}
+      \verb+echo 1 > /proc/sys/net/ipv4/ip_forward+
+    \end{center}    
+    \item Daraufhin muss man sicherstellen, dass die Pakete vom Bilderrahmen an den Webserver auch den Umweg über die VM gehen. Dazu nutzen wir das Tool ``ARPSPOOF'', dieses ermöglicht es manipulierte ARP-Nachrichten zu verschicken und somit eine IP-Adresse eine andere MAC-Adresse zuzuweisen. Es muss nun eine Nachricht gesendet werden die dem Bilderrahmen bzw. dem Webserver vortäuscht das die Gateway IP des Netzes durch das die Pakete um jeden Preis durch wollen, die MAC-Adresse der VM mit SSL-Strip hat. Dadurch geht der Verkehr nun durch die VM. Folgend ein beispielhafter Aufruf:
+    \begin{center}
+      \verb+arpspoof -i eth0 -t 192.168.1.6 192.168.1.1+
+    \end{center}
+    \item Wenn man SSL-Strip startet hört es standardmäßig auf Port 10000, der dort antreffende HTTP/HTTPS Verkehr wird daraufhin manipuliert. Dazu benötigen wir also ein Route die den Verkehr auf Port 80 auf den Port 10000 umleitet. Dazu wird ein weiteres Tool IPTables genutzt, hiermit lassen sich sehr schnell komplexe Netzwerkrouten erstellen. Um nun das hier gewünschte Verhalten zu erreichen müssen wir folgenden Befehl ausführen.
+    \begin{center}
+      \verb+iptables -t nat -A PREROUTING -p tcp \+
+      \verb+--destination-port 80 -j REDIRECT --to-ports 10000+
+    \end{center}
+    \item Nun ist die VM fertig vorbereitet, somit kann man zum Abschluss nun das SSL-Strip Tool starten. Man kann nun im laufenden Betrieb in den Logdaten sehen das der Verkehr manipuliert wird. Das Tool starten gelingt mit folgenden Befehl:
+    \begin{center}
+      \verb+python sslstrip.py+
+    \end{center}
     \end{itemize}
+    Somit wird nun der Netzwerkverkehr von HTTPS Anfragen gesäubert, was zu dem Erfolg führen sollte, dass der Rahmen nun das Zertifikat nicht prüfen will. Die Firmware des Rahmens lies sich, aber auch auf diese Weise nicht austricksen.
+    
+    Dadurch haben wir aus schon erwähnten Gründen gegen die Bilderrahmen entschieden.
 
 \section{Beschreibung der Software zur Notizenerstellung und der Tabletverwaltung am PC}
 Um den Nutzer später die Möglichkeit zu geben kleine Notizen zu erstellen und diese dann auf das elektronische Türschild zu übertragen, wurde eine Software auf Java-Basis geschaffen, die diese Funktionalität bietet. Weiterhin kann das Tablet damit auch auf den Einsatz als Türschild vorbereitet werden, das heißt es kann gerootet werden, die nötige Software kann darüber installiert werden und das aktivieren bzw. das deaktivieren der Hardwarebuttons ist damit möglich. 
@@ -43,7 +66,12 @@ Im letzten Schritt müssen nun noch die Hardwarebuttons des Odys Xelio deaktivie
 Damit wäre das Tablet mit Hilfe des PCs konfiguriert. Alle weiteren Einstellungen müssen nun am Tablet selbst vorgenommen werden.
 
 Die letzte Funktionalität der Software ist das erstellen von kleinen Notizen. Dafür kann der Nutzer eine von ihm im Vorhinein erstellte Vorlage für den Hintergrund wählen. Zu beachten ist dabei, dass die Mitte frei bleibt, denn dort wird der Text eingefügt. Ist diese ausgewählt, muss jetzt noch die Nachricht eingegeben und die Schriftgröße ausgewählt werden. Die Nachricht wird nun mit Hilfe der Methode ``drawString'' der Java-Klasse ``Graphics2d'' gerendert. Die Methode benötigt neben dem zu schreibenden String noch die Koordinaten in x- und y-Richtung. In der vorliegenden Software wird dabei immer der Bildmittelpunkt bestimmt. Dies geschieht mit Hilfe der Methoden ``getHeight()'' und ``getWidth()'' der ``Bufferedimage''-Klasse. Jedoch muss nur die y-Koordinate berechnet werden, da der Bildmittelpunkt in x-Richtung immer 0 entspricht. Für die y-Koordinate wird zunächst der Bildmittelpunkt in y-Richtung mit ``buffImg.getHeight/2 bestimmt.
-Davon wird allerdings noch die Höhe der Schrift abgezogen. Diese kann mit Hilfe von ''g2d.getFontMetrics().getHeight())`` bestimmt werden. Dabei handelt es sich bei ''g2d`` um ein Graphics2d-Objekt. Diesem wird mit der Methode ''setFont()`` ein ''Font``-Objekt übergeben, welches die Schriftart, den Schriftstil und die Schriftgröße enthält. Anhand dieser Parameter kann nun auch die y-Koordinate für den Mittelpunkt ermittelt werden und das Bild kann erstellt werden. 
+Davon wird allerdings noch die Höhe der Schrift abgezogen. Diese kann mit Hilfe von ''g2d.getFontMetrics().getHeight())`` bestimmt werden. Dabei handelt es sich bei ''g2d`` um ein Graphics2d-Objekt. Diesem wird mit der Methode ''setFont()`` ein ''Font``-Objekt übergeben, welches die Schriftart, den Schriftstil und die Schriftgröße enthält. Anhand dieser Parameter kann nun auch die y-Koordinate für den Mittelpunkt ermittelt werden und das Bild kann erstellt werden.
+
+\section{Beschreibung der IntelligentDoorplateControl Applikation zur Einrichtung des Tablets}
+Diese Applikation soll zum ersten die Einrichtung als Türschild direkt auf dem Tablet erleichtern. Dazu lassen sich mittels der Applikation die anderen Apps starten die zu Nutzung als Türschild erforderlich sind. Des weiteren sperrt die Applikation nach gewisser Zeit den Touchscreen, um die Nutzung Unbefugter vorzubeugen. Außerdem wird mit ihrer Hilfe die Statusbar versteckt um das volle Display nutzen zu können. Und die Applikation trägt auch ihren Beitrag zur Green-IT bei, in dem sie das Tablet in einem bestimmten Zeitraum in einen Standbymodus versetzt.
+
+Die Applikation ist im Quellcode dabei also eher recht simpel gehalten, da sie überwiegend nur als eine Art Oberfläche dient. Dabei gibt es eine Activity die alle Schaltflächen der App beinhaltet, außerdem gibt es noch eine Klasse namens ``Device'' diese wurde dem Projekt \textbf{HideBar}\footnote{Dieses Projekt ist selbst eine Android-Applikation die es ermöglicht die Statusbar zu manipulieren. Der Quellcode liegt offen auf Github, da für uns nur das verstecken der Leiste entscheidend war, haben wir anstatt die Applikation selbst zu nutzen, nur eine Klasse des Projekt in Verwendung.\url{http://ppareit.github.com/HideBar/}} entnommen und dient zum verstecken der Statusbar des Tablets. Um den Standbymodus und das blockieren des Touchscreens Zeitgesteuert zu verwalten, gibt es noch einen Service der eine BroadcastReceiver jede Minute aufruft. Wobei im Service ein partieller Wakelock aktiviert wird, damit das Tablet nie in den Tiefschlaf fällt. Im Receiver wird nach den ersten 5 Minuten der Touchscreen blockiert und ausserdem je nach Angaben des Zeitraums für den Standbymodus, das Tablet mit Hilfe der App ``ScreenOffAndLock'' in den Standbybetrieb versetzt und mithilfe eines FullWakelocks in normal betrieb versetzt.
 
 %Ich würde jetzt hiernach noch deine App erklären und dann die Überleitung zum nächsten Abschnitt machen.
 \end{flushleft}
