@@ -66,35 +66,38 @@ In diesem Absatz werden die Funktionen der vier verschiedenen Buttons im unteren
   \subsection{Konfigurieren der Applikation - NoLock}
     Die NoLock-Applikation dient dazu, zu verhindern das das Tablet nach dem Bildschirm ausschalten den Lockscreen aktiviert.
     \begin{itemize}
-      \item Starten sie die App mittels der Schaltfläche ``Start NoLock to configure!''.
+      \item Starten sie die App mittels der Schaltfläche ``Configure NoLock!''.
       \item Falls dort noch ``Lock enabled'' steht klicken sie einmal dort drauf und schon sollte dort ``Lock disabled'' erscheinen, womit der Lockscreen abgeschaltet wurde.
       \item Falls dort schon ``Lock disabled'' zu sehen ist, ist der Lockscreen bereits deaktiviert. Das liegt daran das dies nur einmal gemacht werden muss, solange das Tablet nicht zurückgesetzt wird.
     \end{itemize}
   \subsection{Konfiguration der Applikation - ScreenOff}
     Die ScreenOff App ist ein wesentlicher Bestandteil des Standby-Service. Die Applikation wird automatisch ausgeführt wird, wenn die konfigurierte Sleeptime erreicht ist.
-    Die Konfiguration von ScreenOff, ist eigentlich nur eine Aktivierung dieser. Die Applikation benötigt die freigabe als Geräteadministrator. Man muss hierbei die App nur zweimal starten und zwar über den Button ´´Configure ScreenOff!''. Beim ersten mal werden einige Hinweise gegeben, diese kann man mit ´´OK'' bestätigen. Das zweite mal wird gefragt ob die Applikation Geräteadministrator werden darf, was man mit ´´Aktivieren'' bestätigen muss.
-    Daraufhin ist die Applikation ordnungsgemäß aktiviert. Falls man die funktionalität prüfen will, kann  man einfach noch mal auf den entsprechenden Button drücken wodrauf das Tablet den Bildschirm ausschalten sollte.
+    Die Konfiguration von ScreenOff, ist eigentlich nur eine Aktivierung dieser. Die Applikation benötigt die freigabe als Geräteadministrator. Man muss hierbei die App nur zweimal starten und zwar über den Button ``Configure ScreenOff!''. Beim ersten mal werden einige Hinweise gegeben, diese kann man mit \textit{OK} bestätigen. Das zweite mal wird gefragt ob die Applikation Geräteadministrator werden darf, was man mit \textit{Aktivieren} bestätigen muss.
+    Daraufhin ist die Applikation ordnungsgemäß aktiviert. Falls man die funktionalität prüfen will, kann  man einfach noch mal auf den entsprechenden Button drücken wodrauf das Tablet den Bildschirm ausschalten sollte. Solange die App nicht zurückgesetzt wird, bleibt die Aktivierung erhalten.
   \subsection{Konfigurieren der Applikation - PCFileSync}
   Die PCFileSync-Applikation dient dazu, ein bestimmtes Verzeichnis mit einer entsprechenden Netzwerkfreigabe, die in diesem Projekt über das SMB-Protokoll realisiert wird, zu synchronisieren.
     \begin{itemize}
-      \item Starten sie die App mittels der Schaltfläche ``Start PcFileSync to configure!''.
-      \item In der App rufen sie nun das Kontextmenü über die Hardware bzw Software Options-Taste auf.
+      \item Starten sie die App mittels der Schaltfläche ``Start/configure PcFileSync!''.
+      \item In der App rufen sie nun das Kontextmenü über die Hardware bzw. Software Options-Taste auf.
       \item Dort klicken sie nun auf ``Settings'' und im darauf folgenden Dialog ``Profiles settings''.
       \item Hier muss nun ein neues Profil angelegt werden, um die Synchronisation mit einem lokalen Verzeichnis und einem entsprechenden Netzwerkverzeichnis sicherzustellen. Dazu klicken sie lange in die freie Fläche der Activity, bis sich ein Dialog öffnet. Dort wählen sie ``Add SMB Profile''.
       \item Daraufhin gelangen sie zu einer Activity mit vielen Einstellungsmöglichkeiten. In der folgenden Abbildung ist zu sehen wie man diese Felder ausfüllen sollte, natürlich mit kleineren Anpassungen wie Raumnummer usw.
+      \end{itemize}
       \begin{figure}[htb]
         \centering
         \includegraphics[width=.7\textwidth]{pcfilsync_conf.png}\\ % PNG-File
       \end{figure}
-      \item Nun ist die App fertig konfiguriert und der Synchronisation-Service sollte schon automatisch gestartet sein.
-      \item Ab dem zweiten Mal, muss die PcFileSync-App nur noch einmal gestartet werden, damit der Service startet, die Konfiguration bleibt erhalten.      
-    \end{itemize}
+      Nun ist die App fertig konfiguriert und der Synchronisation-Service sollte schon automatisch gestartet sein.
+      Ab dem zweiten Mal, muss die PcFileSync-App nur noch einmal gestartet werden, damit der Service startet, die Konfiguration bleibt erhalten.    
   \subsection{Konfigurieren der Applikation - PhotoFrameApp}
   	Die PhotoFrame-Applikation dient dazu, dass die Bilder aus dem synchronisierten Verzeichnis mittels einer Diashow ausgegeben werden.
     \begin{itemize}
-      \item Starten sie die App mittels der Schaltfläche ``Start PhotoFrameApp to configure!''.
+      \item Starten sie die App mittels der Schaltfläche ``Start/configure PhotoFrameApp!''.
       \item Am oberen Rand sehen sie dann in der App eine Schaltfläche mit einem kleinen Zahnrad, klicken sie dort drauf, um in die Einstellungen zu gelangen.
-      \item Hier müssen nun einige Einstellungen vorgenommen werden. Zuerst machen sie bitte einen Haken bei ``Erneutes Laden einschalten'' und legen das Intervall fest wie oft der Ordner neu eingelesen wird.
+      \item Angelangt im Einstellungs-Dialog, legt man zuerst das Intervall zwischen den Bildern fest. Zum Beispiel ein Intervall von 20 Sekunden.
+      \item Als nächstes legt man die Art der Reihenfolge der Diashow fest. Im Fall eines Türschilds, würden wir die Reihenfolge nach Datum epmfehlen.
+      \item Daraufhin muss das erneute einlesen des Ordners aktiviert werdenm, dazu machen sie bitte einen Haken bei ``Erneutes Laden einschalten''. Darunter legen sie das Intervall fest, wie oft der Ordner neu eingelesen wird. Wir würden ein Intervall von 30 Sekunden vorschlagen, das sollte ausreichend oft sein.
+      \item Darauffolgend kann man eine Option aktivieren, die es veranlasst, dass nach dem ersten mal starten einer Diashow, die App bei nächsten Start wieder die Diashow im selben Ordner startet. Diese Option empfehlen wir ebenfalls, man aktiviert sie mit einem Haken bei Punkt ``Nach dem Neustart automatisch Fotos anzeigen.''.
       \item \dots
     \end{itemize}
   \subsection{Standby-Service konfigurieren}
