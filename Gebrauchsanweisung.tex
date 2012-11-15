@@ -5,7 +5,31 @@ In diesem Kapitel werden die Funktionen erläutert, die die mitgelieferte Softwa
 
 \section{Installieren des Treibers}
 % TODO USB-Debugging aktivieren erwähnen
+Um das Tablet überhaupt als Bilderrahmen nutzen zu können, muss zuvor ein Treiber für das Gerät auf dem Betriebssystem installiert werden. Dieser Vorgang wird im folgende Abschnitt dargestellt.
 
+Zu aller erst muss auf dem Tablet das ``USB-Debugging'' aktiviert werden. Mit Hilfe dieser Funktion können zum Beispiel selbst entwickelte Applikationen installiert werden oder direkt Befehle an das Tablet gesendet werden. Diese Option befindet sich in den Einstellungen unter dem Punkt ``Entwickleroptionen''. Dort muss die Option mit einem Klick aktiviert werden. Wichtig dabei ist, dass während dieses Vorgangs das Tablet nicht per USB-Kabel mit dem PC verbunden ist. 
+
+\subsection{Treiberinstallation unter Windows}
+Ist das USB-Debugging nun aktiviert, kann mit der eigentlichen Treiberinstallation begonnen werden. Dazu muss das Tablet per USB-Kabel mit dem PC verbunden werden. Windows versucht nun einen Treiber für das Gerät zu finden und diesen zu installieren. Jedoch scheitert dieser Vorgang mit einer Fehlermeldung. Es muss daraufhin der Gerätemanager von Windows geöffnet werden. Dort wird ein Gerät mit dem Namen ``Android'' gelistet, welches mit einem Ausrufezeichen markiert ist. Jetzt muss mit einem Rechtsklick auf dieses Gerät geklickt und der Punkt ``Treibersoftware aktualisieren'' ausgewählt werden. Im folgenden Dialog muss die manuelle Suche nach Treibern auf dem Gerät durchgeführt werden. Nun navigiert man zum beigelegten Ordern ``ADB'' und wählt dort den Ordner ``usb\_driver'' (nicht einen der beiden Unterordner) aus. Auf die Frage, ob der Treiber wirklich installiert werden soll, muss mit ``ja'' beantwortet werden. Damit ist der Treiber erfolgreich unter Windows installiert worden. 
+
+\subsection{Treiberinstallation unter Linux}
+Die Installation des Gerätetreibers unter Linux wird, im Gegensatz zu Windows, vollständig mit der Konsole durchgeführt. Die Installation basiert dabei darauf, eine UDEV-Regel für den jeweiligen Hersteller das Androidgerätes angelegt werden muss. Dazu öffnet man ein Terminal im Ordner ``ADB-Linux-Conf'', welcher sich im beigelegten ``ADB''-Ordner befindet. Es müssen nun folgende Befehle eingegeben werden:
+ \begin{lstlisting}[caption={Treiberinstallation unter Linux}\label{Linuxinstallation},captionpos=t] 
+ //die fuer das Odys bereitgestellte Datei wird nach "/etc/udev/rules.d" kopiert
+ sudo cp 51-android.rules /etc/udev/rules.d/.
+ 
+ //Wechsel in das Zielverzeichnis
+ cd /etc/udev/rules.d/
+ 
+ //als naechstes muessen die Rechte der Datei angepasst werden
+ chmod a+r 51-android.rules
+ 
+ //UDEV Dienst muss die neuen Regeln einlesen. 
+ sudo service udev reload
+ \end{lstlisting}
+
+ Das Odys Xelio kann nun per USB verbunden werden. Wechselt man nun in der Konsole in das mitgelieferte Verzeichnis ``ADB'' kann mit Hilfe von ``./adb devices'' eine Übersicht aller angeschlossenen Geräte gezeigt werden. 
+ 
 \section{Bedienung der Software am PC}
 \subsection{Erstellung einer Notiz}
 Um für das Tablet eine Nachricht zu erzeugen, muss die eigentliche Textnachricht in eine Bilddatei umgewandelt werden. Um diese Umwandlung zu vollziehen kann die mitgegebene Software genutzt werden. Dafür müssen folgende Schritte durchgeführt werden:
