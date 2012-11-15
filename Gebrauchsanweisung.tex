@@ -98,14 +98,22 @@ In diesem Absatz werden die Funktionen der vier verschiedenen Buttons im unteren
       \item Als nächstes legt man die Art der Reihenfolge der Diashow fest. Im Fall eines Türschilds, würden wir die Reihenfolge nach Datum epmfehlen.
       \item Daraufhin muss das erneute einlesen des Ordners aktiviert werdenm, dazu machen sie bitte einen Haken bei ``Erneutes Laden einschalten''. Darunter legen sie das Intervall fest, wie oft der Ordner neu eingelesen wird. Wir würden ein Intervall von 30 Sekunden vorschlagen, das sollte ausreichend oft sein.
       \item Darauffolgend kann man eine Option aktivieren, die es veranlasst, dass nach dem ersten mal starten einer Diashow, die App bei nächsten Start wieder die Diashow im selben Ordner startet. Diese Option empfehlen wir ebenfalls, man aktiviert sie mit einem Haken bei Punkt ``Nach dem Neustart automatisch Fotos anzeigen.''.
-      \item \dots
+      \item Nun folgen noch ein paar Anzeigeoptionen für die Diashow, diese sind natürlich nur eine Empfehlung. Sie beeinträchtigen also nicht die Funktion des Tablets als intelligentes Türschild.
+      \begin{itemize}
+        \item Als erstes kann man das Standardlayout zur Anzeige der Bilder auswählen. Wir würden hier das Layout ``Vollbild Fotos'' empfehlen
+        \item Danach kommt der Punkt ``Deckkraft starten'', hier kann man einstellen, ob die Bilder nachdem erscheinen langsam heller werden. Diese Option ist nach unserer Meinung, bei einem Türschild nicht sehr sinnvoll, also würden wir empfehlen diesen auf dem Wert ``255'' zu belassen.
+        \item Als nächstes kann man aktivieren bzw. deaktivieren ob in der Diashow eine Foto Nummerierung zusahen sein soll. Wir würde die Option deaktivieren, ist bei einem Türschild nicht relevant.
+        \item Daraufhin kann man auswählen ob der Dateiname angezeigt werden soll, was wir ebenfalls nicht empfehlen würden.
+        \item Zum Schluss kommen die beiden Optionen ``Zeige Vollbild'', die Bilder werden also möglichst groß skaliert in Abhängigkeit der Auflösung des Bildschirms und ``Werden im Querformat.'', also alle Bilder werden ins Querformat gebracht. Diese beiden Optionen würden wir aktivieren.
+      \end{itemize}
     \end{itemize}
+    Damit ist die Konfiguration der PhotoframeApp weitestgehend abgeschlossen, beim endgültigen starten der Applikation, nach der Einrichtung des Standby-Service, muss man dann nur noch den entsprechenden Ordner, der mittels PcFileSync synchronisiert ist, auswählen.
   \subsection{Standby-Service konfigurieren}
     Der Standby-Service wurde dazu entwickelt, das Tablet zu bestimmten Zeiten aus dem Standby aufzuwecken bzw. in den Standbymodus zu versetzen.
     \begin{itemize}
-      \item In der rechten Spalte der IDC-App haben wir zwei Felder zum eingeben der Wake-UP- und Sleep-Time. Diese müssen dem vorgegebenen Format entsprechen und müssen ausserdem mit einer führenden 0 beginnen falls die Stunden einstellig sind.
+      \item In der rechten Spalte der IDC-App haben wir zwei TimePicker zum festlegen der Wake-UP- und Sleep-Time. Diese legt man nun nach seinen Wünschen fest.
       \item Danach können sie über den Button ``Start Standby \& NoTouch Service'' den Service starten.
-      \item Nach dem Start des Service haben sie noch ca. 5 Minuten bis der Touchscreen gesperrt wird. Danach ist das Tablet nur noch durch einen Neustart wieder normal zu verwenden.
+      \item Vor dem Start wird auch in der Applikation noch mal der Hinweis gegeben, dass sie noch ca. 5 Minuten haben bis der Touchscreen gesperrt wird. Danach ist das Tablet nur noch durch einen Neustart wieder normal zu verwenden.
     \end{itemize}
     In der verbleibenden Zeitspanne, muss nun endgültig die PhotoFrameApp gestartet und die Diashow ausgeführt werden. Daraufhin ist das Tablet nun so konfiguriert, das es sich mit dem gewählten Verzeichnis synchronisiert, es eine Diashow mit dessen Inhalt ausgibt, es nicht von Unbefugten benutzt werden kann und es sich zu bestimmten Zeiten in den Standbymodus versetzt und daraus auch wieder erwacht.
 \end{flushleft}
