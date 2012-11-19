@@ -14,7 +14,7 @@ Ist das USB-Debugging nun aktiviert, kann mit der eigentlichen Treiberinstallati
 
 \subsection{Treiberinstallation unter Linux}
 Die Installation des Gerätetreibers unter Linux wird, im Gegensatz zu Windows, vollständig mit der Konsole durchgeführt. Die Installation basiert dabei darauf, eine UDEV-Regel für den jeweiligen Hersteller das Androidgerätes angelegt werden muss. Dazu öffnet man ein Terminal im Ordner ``ADB-Linux-Conf'', welcher sich im beigelegten ``ADB''-Ordner befindet. Es müssen nun folgende Befehle eingegeben werden:
- \begin{lstlisting}[caption={Treiberinstallation unter Linux}\label{Linuxinstallation},captionpos=t] 
+ \begin{lstlisting}[caption={Treiberinstallation unter Linux}\label{Linuxinstallation},captionpos=t,linewidth=\textwidth] 
  //die fuer das Odys bereitgestellte Datei wird nach "/etc/udev/rules.d" kopiert
  sudo cp 51-android.rules /etc/udev/rules.d/.
  
