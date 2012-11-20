@@ -1,2 +1,116 @@
 \chapter{ Ausblick }\label{chap:Ausblick}
+\vspace*{-3cm}
+\begin{flushleft}
+In diesem Kapitel wird ein kurzer Überblick gegeben, welche Erweiterungen noch für das Projekt möglich wären und erste Ansätze wie diese umgesetzt werden könnten. 
+
+\section{Wireless-ADB}
+Im bisherigen Verlauf des Projektes werden viele Einstellungen (wie z.B. das Rooten oder die Software-Installation) über ADB vorgenommen. Nachteil an dieser Methode ist, dass das Tablet jedes mal per USB-Kabel an einen PC angeschlossen werden muss. Dies bedeutet, dementsprechend, dass diese von der Wand abmontiert werden müssen, um neue Einstellungen vorzunehmen. Eine Lösung dafür wäre, dass die ADB-Befehle nicht mit Hilfe eines USB-Kabels übertragen werden, sondern mit Hilfe einer WLan-Verbindung. Dies wird jedoch standardmäßig nicht vom Odys Xelio unterstützt. Abhilfe verschaffen jedoch Apps, welche diese Funktion nachrüsten. Diese sind im ``Google Play Store'' (bezeichnet eine Plattform, welche das herunterladen und installieren von Apps auf Android Geräten ermöglicht) unter dem Begriff ``Wireless ADB'' zu finden. Somit ist der Nutzer nicht mehr dazu gezwungen ein USB-Kabel für die Konfiguration zu nutzen, sondern kann alle Einstellungen über Wlan vornehmen, solange sich das Tablet und der Router in einem Netzwerk aufhalten und die entsprechende App aktiviert ist. Somit ist nun auch nicht mehr nötig das Tablet für Einstellungen von der Wand abzunehmen. 
+Jedoch ist es nun nicht einfach möglich die zum Projekt mitgegebenen .batch- bzw. .bash-Dateien zu nutzen, denn diese geben keinen Aufschluss darüber, wo sich das Gerät im Netzwerk befindet. Eine Möglichkeit dieses Missstand zu beheben, wäre es für jedes zu verwaltende Tablet einen angepassten Satz .batch- bzw. .bash-Dateien anzulegen. Da dies jedoch den Verwaltungsaufwand stark erhöhen würde, muss eine andere Lösung her. Ein Ansatz wäre somit die dynamische Erzeugung der Dateien. Dafür muss das beigelegte Verwaltungsprogramm, welches unter anderem für das Rooten oder das aktivieren bzw. deaktivieren der Hardwarebuttons verantwortlich ist, erweitert werden. Bei dieser Erweiterung handelt ist sich zum einen um eine Möglichkeit eine gültige IP-Adresse einzugeben (dieses Feld sollte mit einem Radio-Button aktiviert werden, um eine bessere Unterscheidung zwischen den beiden Methoden zu ermöglichen) und zum anderen die dynamische Erstellung von entsprechenden Dateien. Da bei der WLan-Verbindung zu einem Tablet eine jedes mal eine andere IP-Adresse vorhanden sein kann, muss für jede Aktion eine neue Datei geschrieben, daraufhin ausgeführt und dann wieder gelöscht werden. Wie das Schreiben einer Datei aussehen könnte, zeigt folgendes Listing (gezeigt am Beispiel des Rootens):
+\newpage
+\begin{lstlisting}[caption={Dynamische Erstellung einer .batch-Datei}\label{dynamische Dateierstellung},captionpos=t,linewidth=\textwidth] 
+ 
+//erstellen der zu schreibenden .bat-Datei
+File file = new File(System.getProperty("user.dir") + "\\ADB\\wireless_mkroot.bat");
+try{
+//Datei wird immer neu überschrieben
+FileWriter writer = new FileWriter(file);	
+
+//es wird abgefragt, ob ein Radio-Button mit Namen "rdbtnOnline" aktiviert ist
+//falls ja: die geforderte Einstellung wird mit Wireless-ADB ausgeführt
+//falls nein: die geforderte Einstellung wird mit kabelgebundenen ADB ausgeführt
+if(rdbtnOnline.isSelected() == true)
+{
+	//es wird abgefragt, ob das Feld für die IP ausgefuellt wurde
+	if(IPFeld.getIP() != null)
+	{
+		//es wird der noetige string in einen zuvor erstellten FileWriter geschrieben
+		//dabei unterscheidet sich diese Anweisungen in zwei Punkten
+		//von der USB-Variante:
+		//erster Punkt:
+		//"adb disconnect " + IPFeld.getIP() + "\n" +
+		//dieser Befehl fuehrt zur Sicherheit eine Trennung des Geraetes 
+		//mit der ausgelesenen IP durch
+		//zweiter Punkt:
+		//"adb connect "  + IPFeld.getIP() + "\n" +
+		//dieser Befehl sorgt nun dafür, dass eine Wlan-Verbindung zum Tablet
+		//hergestellt wird und ADB-Befehle gesendet werden können 
+		//alle weiteren Kommandos entsprechen der USB-Variante
+		writer.write(
+				"@echo off\n" +
+				"setlocal\n" +
+				"set version=0.3\n" +
+				"title %~nx0 - version %version% - by GK\n" +
+				"mode CON: COLS=100 LINES=44\n" +
+				"color 1E\n\n" +
+				
+				"cd ADB\n\n" +
+				
+				"if not exist su (\n" +
+				"echo ERROR: file 'su' not found in %~dp0 !\n" +
+				"goto END\n" +
+				")\n\n" +
+
+				"if not exist Superuser.apk (\n" +
+				"echo ERROR: file 'Superuser.apk' not %~dp0 !\n" +
+				"goto END\n" +
+				")\n\n" +
+				  
+				"adb disconnect " + IPFeld.getIP() + "\n" +
+				
+				"adb connect "  + IPFeld.getIP() + "\n" +
+				
+				"echo Waiting for device ...\n" +
+				"adb wait-for-device\n" +
+				"echo Restarting ADB with root permission ...\n" +
+				"adb root\n" +
+				"echo Remounting /system RW ...\n" +
+				"adb remount\n" +
+				"echo Copying su to /system/bin/ ...\n" +
+				"adb push su /system/bin/\n" +
+				"echo Copying Superuser.apk to /system/app/ ...\n" +
+				"adb push Superuser.apk /system/app/\n" +
+				"echo Setting permission for /system/bin/su\n" +
+				"adb shell /system/bin/busybox chmod 6755 /system/bin/su\n" +
+				"REM echo Setting permission for /system/app/Superuser.apk\n" +
+				"REM adb shell /system/bin/busybox chmod 6755 /system/app/Superuser.apk\n" +
+				"echo Removing existing /system/xbin/su\n" +
+				"adb shell /system/bin/busybox rm -f /system/xbin/su\n" +
+				"echo Creating symlink to /system/bin/su in /system/xbin\n" +
+				"adb shell /system/bin/busybox ln -s /system/bin/su /system/xbin/su\n" +
+				"echo Now rebooting device ...\n" +
+				"adb reboot\n" +
+				":END\n" +
+				"echo.\n" +
+				"pause\n" +
+				"exit");
+				
+		//Stream in Datei schreiben
+		writer.flush();
+								
+		//Stream schliessen
+		writer.close();
+								
+		Runtime.getRuntime().exec("cmd /C start " + System.getProperty("user.dir") + 
+		"\\ADB\\wireless_mkroot.bat");
+	}
+	else{
+		JOptionPane.showMessageDialog(null, "Bitte geben Sie eine gueltige IP-Adresse an", 
+		"Fehler", JOptionPane.OK_OPTION);
+	}
+}
+else
+{
+	Runtime.getRuntime().exec("cmd /C start " + System.getProperty("user.dir") + 
+	"\\ADB\\mkroot.bat");
+}	
+	}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
+\end{lstlisting}
+
+\end{flushleft}
 % Zu jeder Arbeit in unserem Bereich gehört eine Leistungsbewertung. Aus diesem Kapitel sollte hervorgehen, welche Methoden angewandt worden, die Leistungsfähigkeit zu bewerten und welche Ergebnisse dabei erzielt wurden. Wichtig ist es, dem Leser nicht nur ein paar Zahlen hinzustellen, sondern auch eine Diskussion der Ergebnisse vorzunehmen. Sehr gut ist, wenn man zunächst diskutiert und plausibel macht, welche Ergebnisse man erwartet, und dann eventuelle Abweichungen diskutiert.
