@@ -110,5 +110,48 @@ final boolean available = MainActivity.isIntentAvailable(context,
 
 Nun möchte ich zu einer näheren Erläuterung des Standby \& NoTouch Service kommen. Die Funktionalität die dieser Service bereitstellen soll ist einmal das Ein-/Ausschalten des Bildschirms zu vorher festgelegten Zeiten und außerdem soll der Service den Touchscreen sperren.
 
+Ein Service ist in Android dazu gedacht im Hintergrund Funktionen bereitzustellen. Dieser läuft auch nach dem Beenden einer Applikation weiter.
+
+Gestartet wird der Dienst über die \textit{MainActivity}, dort wird über einen Klick auf den ``Start Standby \& NoTouch Service'' der folgende Code zum starten aufgerufen:
+\newpage
+\begin{lstlisting}[caption={Start Service}\label{StartService}, captionpos=t, language=JAVA] 
+public void onClick(DialogInterface dialog, int which) {
+	Intent service = new Intent(context, StandbyNoTouchService.class);
+	startService(service);
+}
+\end{lstlisting}
+
+Sobald der Service startet wird ein partieller WakeLock aktiviert, dieser bringt das Androidgerät dazu den CPU nie in den Tiefschlaf zu legen, damit der Service auch nach einer Stunde im Standby noch Aktionen ausführen kann. Wenn das Tablet im Tiefschlaf ist, kann der Service es nicht mehr erwecken und somit keine Aktionen ausführen. Folgender der Code startet diesen WakeLock:
+
+\begin{lstlisting}[caption={Activate partial WakeLock}\label{ActPartialWakeLock}, captionpos=t, language=JAVA]
+PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+PowerManager.WakeLock partialWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,"PARTIALWAKEUP");
+
+partialWakeLock.acquire();
+\end{lstlisting}
+
+Beim Beenden des Dienstes wird der WakeLock deaktiviert, was mit folgendem Aufruf realisiert wird:
+\begin{lstlisting}[caption={Deactivate partial WakeLock}\label{DeactPartialWakeLock}, captionpos=t, language=JAVA]
+if (partialWakeLock.isHeld()) {
+	artialWakeLock.release();
+}
+\end{lstlisting}
+
+Im Service wird außerdem ein BroadcastReceiver gestartet. Solch ein Receiver bietet unter anderem die Möglichkeit ihn zum Beispiel jede Minute zu starten. Was in unserem Fall auch genutzt wird, der BroadcastReceiver führt bei jedem Starten einen Prüfung durch, ob die voreingestellte Ein-/Ausschaltzeit erreicht ist. Wenn die Einschaltzeit erreicht wird, löst der Receiver einen ``Full WakeLock'' aus, dieser bewirkt das wieder einschalten des Bildschirms und außerdem bei noch nicht gesperrten Touchscreen das Sperren. Der ``Full WakeLock'' wird ganz ähnlich dem Partiellen aufgerufen und auch wieder beendet, es werden nur andere Optionen verwendet.
+\begin{lstlisting}[caption={Activate full WakeLock}\label{DeactPartialWakeLock}, captionpos=t, language=JAVA]
+PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+PowerManager.WakeLock fullWakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
+						| PowerManager.ACQUIRE_CAUSES_WAKEUP, "FULLWAKEUP");
+						
+fullWakeLock.acquire();
+\end{lstlisting}
+
+Das Sperren des Touchscreen wird mittels einer Applikation namens ``NoTouch'' und wie weiter oben erwähnt aufgerufen.
+Beim erreichen der Ausschaltzeit, wird die Applikation ``ScreenOff'' gestartet und somit das Tablet in einen Standbymodus versetzt. Außerdem wird der ``Full WakeLock'' eine Minute vorher deaktiviert, da er sonst das abschalten verhindern würde.
+
+Der Receiver beinhaltet noch ein weiteres Feature und zwar startet man den Service in den meisten fällen nachdem die Einschaltzeit schon vorbei ist. Damit ist der Touchscreen für den ersten Tag noch nicht deaktiviert, somit läuft sozusagen ein Counter im Receiver der die NoTouch App nach ca. 5 Minuten nach dem Start des Dienstes ausführt. Dies wird realisiert in dem bei jedem Starten eine Zahl in den SharedPreferences\footnote{Mit SharedPreferences können key/value - Paare dauerhaft persistiert werden.} erhöht wird, bis diese 5 ist. Dann wird das aufwärts zählen eingestellt und der Touchscreen gesperrt.
+
+Damit ist die Implementation der Control App zum groß teil erläutert und sollte zum Verständnis ausreichend sein.
+
 %Ich würde jetzt hiernach noch deine App erklären und dann die Überleitung zum nächsten Abschnitt machen.
 \end{flushleft}

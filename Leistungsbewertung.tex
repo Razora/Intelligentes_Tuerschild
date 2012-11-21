@@ -12,15 +12,15 @@ Jedoch ist es nun nicht einfach möglich die zum Projekt mitgegebenen .batch- bz
 //erstellen der zu schreibenden .bat-Datei
 File file = new File(System.getProperty("user.dir") + "\\ADB\\wireless_mkroot.bat");
 try{
-//Datei wird immer neu überschrieben
+//Datei wird immer neu ueberschrieben
 FileWriter writer = new FileWriter(file);	
 
 //es wird abgefragt, ob ein Radio-Button mit Namen "rdbtnOnline" aktiviert ist
-//falls ja: die geforderte Einstellung wird mit Wireless-ADB ausgeführt
-//falls nein: die geforderte Einstellung wird mit kabelgebundenen ADB ausgeführt
+//falls ja: die geforderte Einstellung wird mit Wireless-ADB ausgefuehrt
+//falls nein: die geforderte Einstellung wird mit kabelgebundenen ADB ausgefuehrt
 if(rdbtnOnline.isSelected() == true)
 {
-	//es wird abgefragt, ob das Feld für die IP ausgefuellt wurde
+	//es wird abgefragt, ob das Feld fuer die IP ausgefuellt wurde
 	if(IPFeld.getIP() != null)
 	{
 		//es wird der noetige string in einen zuvor erstellten FileWriter geschrieben
@@ -32,8 +32,8 @@ if(rdbtnOnline.isSelected() == true)
 		//mit der ausgelesenen IP durch
 		//zweiter Punkt:
 		//"adb connect "  + IPFeld.getIP() + "\n" +
-		//dieser Befehl sorgt nun dafür, dass eine Wlan-Verbindung zum Tablet
-		//hergestellt wird und ADB-Befehle gesendet werden können 
+		//dieser Befehl sorgt nun dafuer, dass eine Wlan-Verbindung zum Tablet
+		//hergestellt wird und ADB-Befehle gesendet werden koennen 
 		//alle weiteren Kommandos entsprechen der USB-Variante
 		writer.write(
 				"@echo off\n" +
@@ -116,6 +116,9 @@ In diesem Kapitel wird ein kurzer Überblick gegeben, welche Erweiterungen noch 
 Auf dem im Listing gezeigten Wege ist also nun möglich für jedes über Wlan angeschlossene Gerät eine entsprechende Datei zu erzeugen, die dann die angegebenen Befehle an das Gerät sendet. Somit ist es nun leichter möglich die Konfiguration des Odys Xelio zu verändern. Diese Vorgehensweise kann für jede andere Einstellung (Softwareinstallation oder die Aktivierung der Hardwarebuttons) genutzt werden. 
 
 Jedoch hat diese Technik nicht den Weg in die Ausarbeitung des Projektes gefunden, da die gegebenen WLan-ADB-Apps nicht die Möglichkeit bieten die Verbindung mit einem Passwort zu sichern. Somit wäre es für jede Person möglich, welche die IP-Adresse des Gerätes besitzt, Kontrolle über das Tablet zu erlangen und Veränderungen daran vorzunehmen. Um dies zu verhindern muss also die eingesetzte WLan-ADB-App die Option bieten vor der Verbindung ein Passwort abzufragen. Eine weiteres Mittel um Wireless-ADB auch mit den bisher existierenden Wireless-ADB-Apps einzusetzen, wäre die Einrichtung eines eigenen Netzwerkes für die Tablets innerhalb des Gebietes in dem sie eingesetzt werden. So könnte die Anzahl an Personen, welche Zugriff auf die Tablets haben, stark begrenzt werden und es könnte somit auch vorher eine genaue Auswahl getroffen werden, welche Personen die Rechte haben Einstellungen zu verändern.
+
+\section{Konzept zur Netzwerkanbindung}
+% Ich denke hier sollte wir/ich noch mal meine Samba VM erwähnen, wie ich mir dem Umgang mit dieser vorgestellt habe
 
 \end{flushleft}
 % Zu jeder Arbeit in unserem Bereich gehört eine Leistungsbewertung. Aus diesem Kapitel sollte hervorgehen, welche Methoden angewandt worden, die Leistungsfähigkeit zu bewerten und welche Ergebnisse dabei erzielt wurden. Wichtig ist es, dem Leser nicht nur ein paar Zahlen hinzustellen, sondern auch eine Diskussion der Ergebnisse vorzunehmen. Sehr gut ist, wenn man zunächst diskutiert und plausibel macht, welche Ergebnisse man erwartet, und dann eventuelle Abweichungen diskutiert.
