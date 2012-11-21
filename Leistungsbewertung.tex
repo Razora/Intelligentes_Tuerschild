@@ -117,6 +117,28 @@ Auf dem im Listing gezeigten Wege ist also nun möglich für jedes über Wlan an
 Jedoch hat diese Technik nicht den Weg in die Ausarbeitung des Projektes gefunden, da die gegebenen WLan-ADB-Apps nicht die Möglichkeit bieten die Verbindung mit einem Passwort zu sichern. Somit wäre es für jede Person möglich, welche die IP-Adresse des Gerätes besitzt, Kontrolle über das Tablet zu erlangen und Veränderungen daran vorzunehmen. Um dies zu verhindern muss also die eingesetzte WLan-ADB-App die Option bieten vor der Verbindung ein Passwort abzufragen. Eine weiteres Mittel um Wireless-ADB auch mit den bisher existierenden Wireless-ADB-Apps einzusetzen, wäre die Einrichtung eines eigenen Netzwerkes für die Tablets innerhalb des Gebietes in dem sie eingesetzt werden. So könnte die Anzahl an Personen, welche Zugriff auf die Tablets haben, stark begrenzt werden und es könnte somit auch vorher eine genaue Auswahl getroffen werden, welche Personen die Rechte haben Einstellungen zu verändern.
 
 \section{Konzept zur Netzwerkanbindung}
+Um die intelligenten Türschilder in der gesamten Fachhochschule bzw. erstmal im Fachbereich ETI zu realisieren, muss noch ein Lösung erarbeitet werden wie man die Türschilder an ein Netzwerk mit Samba Freigaben anbindet.\\
+
+An dieser Stelle möchte wir ein mögliches Konzept dafür vorstellen. Eine erste Idee wäre es die Türschilder zum Beispiel in ein Campus weites bestehendes WLan mit einzubinden und dort Samba Shares zu erlauben. Da dann womöglich sehr viele Leute im gleichen Netzwerk sind, müsste man sich bei den späteren Freigaben für die Türschilder ziemlich sichere Passwörter verwenden, um Missbrauch vorzubeugen. Zu sichere Passwörter würden nach unserer Meinung aber der Komfortabilität entgegenwirken. Daher wäre es besser ein eigenes WLan einzurichten, was wiederum auch für Wireless-ADB von Vorteil wäre.\\
+
+In diesem WLan könnte dann eine Virtuelle Maschine (VM) mit einem Samba Dienst eingehängt sein. Solch ein VM wurde von uns auch vorbereitet und wird auf einem Datenträger als OVA-(Open Virtualization Format)-Archiv mitgeliefert.\\
+
+Diese vorbereitete VM enthält ein Debian Squeeze System mit installierten Samba Dienst. Der Dienst ist so konfiguriert das man einen Nutzer auf dem System anlegt z.B. als Nutzername ``raum319'', dann wird automatisch das Home-Verzeichnis des Nutzers, was den selben Namen als Verzeichnisnamen hat freigegeben.\\
+
+Um einen korrekten Nutzer für das Linux System und den Samba Dienst zu erzeugen, wurde außerdem ein Skript erstellt, was unter dem Home-Verzeichnis des root-Nutzers liegt.\\
+
+Dieses ruft man dann wie folgt auf:
+\vspace{.3cm}
+\begin{center}
+\verb|./create_idc_samba_user %Nutzername% %Passwort%|
+\end{center}
+\vspace{.3cm}
+Mithilfe einer zeilenweisen Liste von Nutzernamen und Passwörtern, könnte man dann auch relativ schnell mehrere Nutzer anlegen.\\
+
+Daraufhin kann man die Synchronisation Applikation auf den Tablets wie im Abschnitt \ref{pcfilesync_subsec} \nameref{pcfilesync_subsec} konfigurieren.\\
+
+Außerdem muss die VM von den PCs der Professoren bzw. von allen Leuten erreichbar sein, die ein solches Türschild mit neuen Daten bestücken wollen. Dazu muss dann nur die entsprechende Freigabe auf dem Rechner geöffnet werden und dort die Bilddateien gelöscht bzw. hinzugefügt werden. 
+
 % Ich denke hier sollte wir/ich noch mal meine Samba VM erwähnen, wie ich mir dem Umgang mit dieser vorgestellt habe
 
 \end{flushleft}

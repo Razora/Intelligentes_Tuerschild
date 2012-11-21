@@ -96,9 +96,9 @@ In diesem Absatz werden die Funktionen der vier verschiedenen Buttons im unteren
     \end{itemize}
   \subsection{Konfiguration der Applikation - ScreenOff}
     Die ScreenOff App ist ein wesentlicher Bestandteil des Standby-Service. Die Applikation wird automatisch ausgeführt wird, wenn die konfigurierte Sleeptime erreicht ist.
-    Die Konfiguration von ScreenOff, ist eigentlich nur eine Aktivierung dieser. Die Applikation benötigt die freigabe als Geräteadministrator. Man muss hierbei die App nur zweimal starten und zwar über den Button ``Configure ScreenOff!''. Beim ersten mal werden einige Hinweise gegeben, diese kann man mit \textit{OK} bestätigen. Das zweite mal wird gefragt ob die Applikation Geräteadministrator werden darf, was man mit \textit{Aktivieren} bestätigen muss.
-    Daraufhin ist die Applikation ordnungsgemäß aktiviert. Falls man die funktionalität prüfen will, kann  man einfach noch mal auf den entsprechenden Button drücken wodrauf das Tablet den Bildschirm ausschalten sollte. Solange die App nicht zurückgesetzt wird, bleibt die Aktivierung erhalten.
-  \subsection{Konfigurieren der Applikation - PCFileSync}
+    Die Konfiguration von ScreenOff, ist eigentlich nur eine Aktivierung dieser. Die Applikation benötigt die Freigabe als Geräteadministrator. Man muss hierbei die App nur zweimal starten und zwar über den Button ``Configure ScreenOff!''. Beim ersten mal werden einige Hinweise gegeben, diese kann man mit \textit{OK} bestätigen. Das zweite mal wird gefragt ob die Applikation Geräteadministrator werden darf, was man mit \textit{Aktivieren} bestätigen muss.
+    Daraufhin ist die Applikation ordnungsgemäß aktiviert. Falls man die Funktionalität prüfen will, kann  man einfach noch mal auf den entsprechenden Button drücken worauf das Tablet den Bildschirm ausschalten sollte. Solange die App nicht zurückgesetzt wird, bleibt die Aktivierung erhalten.
+  \subsection{Konfigurieren der Applikation - PCFileSync}\label{pcfilesync_subsec}
   Die PCFileSync-Applikation dient dazu, ein bestimmtes Verzeichnis mit einer entsprechenden Netzwerkfreigabe, die in diesem Projekt über das SMB-Protokoll realisiert wird, zu synchronisieren.
     \begin{itemize}
       \item Starten sie die App mittels der Schaltfläche ``Start/configure PcFileSync!''.
@@ -131,7 +131,7 @@ In diesem Absatz werden die Funktionen der vier verschiedenen Buttons im unteren
         \item Zum Schluss kommen die beiden Optionen ``Zeige Vollbild'', die Bilder werden also möglichst groß skaliert in Abhängigkeit der Auflösung des Bildschirms und ``Werden im Querformat.'', also alle Bilder werden ins Querformat gebracht. Diese beiden Optionen würden wir aktivieren.
       \end{itemize}
     \end{itemize}
-    Damit ist die Konfiguration der PhotoframeApp weitestgehend abgeschlossen, beim endgültigen starten der Applikation, nach der Einrichtung des Standby-Service, muss man dann nur noch den entsprechenden Ordner, der mittels PcFileSync synchronisiert ist, auswählen.
+    Damit ist die Konfiguration der PhotoFrameApp weitestgehend abgeschlossen, beim endgültigen starten der Applikation, nach der Einrichtung des Standby-Service, muss man dann nur noch den entsprechenden Ordner, der mittels PcFileSync synchronisiert ist, auswählen.
   \subsection{Standby-Service konfigurieren}
     Der Standby-Service wurde dazu entwickelt, das Tablet zu bestimmten Zeiten aus dem Standby aufzuwecken bzw. in den Standbymodus zu versetzen.
     \begin{itemize}
