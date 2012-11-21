@@ -29,7 +29,7 @@
     
     Das Tool dient dazu einen empfangenen Netzwerkverkehr auf HTTPS Pakete zu durchsuchen und die mit HTTP zu ersetzen, somit ist es möglich z.B. GMAIL oder auch PAYPAl Anmeldedaten im Klartext mit zu lesen. Außerdem, was für unseren Einsatz wesentlich wichtiger ist, werden die Pakete so manipuliert weitergeschickt. Dadurch haben wir vermutet können wir den Bilderrahmen austricksen, was aber letztendlich auch nicht zum Erfolg führte.
     
-    Die VM muss nun natürlich erstmal so konfiguriert werden das sie im gleichen Adressbereich wie der Router und Bilderrahmen hängt. Daraufhin muss nun die VM darauf vorbereitet werden den IPv4 Netzwerkverkehr komplett zu empfangen und auch wieder weiterzuleiten (IPv4-Forwarding).\par Wie man vllt. erkennen kann, versuchen wir jetzt einen Man-in-the-Middle Angriff durchzuführen, um somit die SSL-Verschlüsselung des Rahmens zu umgehen.\vspace{.3cm}
+    Die VM muss nun natürlich erstmal so konfiguriert werden das sie im gleichen Adressbereich wie der Router und Bilderrahmen hängt. Daraufhin muss nun die VM darauf vorbereitet werden den IPv4 Netzwerkverkehr komplett zu empfangen und auch wieder weiterzuleiten (IPv4-Forwarding).\par Wie man vllt. erkennen kann, versuchen wir jetzt einen Man-in-the-Middle Angriff durchzuführen, um somit die SSL-Verschlüsselung des Rahmens zu umgehen.\newpage
     
     \underline{Vorgehen:}\\
     \begin{itemize}
@@ -71,13 +71,13 @@ Davon wird allerdings noch die Höhe der Schrift abgezogen. Diese kann mit Hilfe
 \section{Beschreibung der IntelligentDoorplateControl Applikation zur Einrichtung des Tablets}
 Diese Applikation soll zum ersten die Einrichtung als Türschild direkt auf dem Tablet erleichtern. Dazu lassen sich mittels der Applikation die anderen Apps starten die zu Nutzung als Türschild erforderlich sind. Des weiteren sperrt die Applikation nach gewisser Zeit den Touchscreen, um die Nutzung Unbefugter vorzubeugen. Außerdem wird mit ihrer Hilfe die Statusbar versteckt um das volle Display nutzen zu können. Und die Applikation trägt auch ihren Beitrag zur Green-IT bei, in dem sie das Tablet in einem bestimmten Zeitraum in einen Standbymodus versetzt.
 
-Die Applikation ist im Quellcode dabei also eher recht simpel gehalten, da sie überwiegend nur als eine Art Oberfläche dient. Dabei gibt es eine Activity die alle Schaltflächen der App beinhaltet, außerdem gibt es noch eine Klasse namens ``Device'' diese wurde dem Projekt \textbf{HideBar}\footnote{Dieses Projekt ist selbst eine Android-Applikation die es ermöglicht die Statusbar zu manipulieren. Der Quellcode liegt offen auf Github, da für uns nur das verstecken der Leiste entscheidend war, haben wir anstatt die Applikation selbst zu nutzen, nur eine Klasse des Projekt in Verwendung.\url{http://ppareit.github.com/HideBar/}} entnommen und dient zum verstecken der Statusbar des Tablets. Um den Standbymodus und das blockieren des Touchscreens Zeitgesteuert zu verwalten, gibt es noch einen Service der eine BroadcastReceiver jede Minute aufruft. Wobei im Service ein partieller Wakelock aktiviert wird, damit das Tablet nie in den Tiefschlaf fällt. Im Receiver wird nach den ersten 5 Minuten der Touchscreen blockiert und ausserdem je nach Angaben des Zeitraums für den Standbymodus, das Tablet mit Hilfe der App ``ScreenOffAndLock'' in den Standbybetrieb versetzt und mithilfe eines FullWakelocks in normal betrieb versetzt.
+Die Applikation ist im Quellcode dabei also eher recht simpel gehalten, da sie überwiegend nur als eine Art Oberfläche dient. Dabei gibt es eine Activity die alle Schaltflächen der App beinhaltet, außerdem gibt es noch eine Klasse namens ``Device'' diese wurde dem Projekt \textbf{HideBar}\footnote{Dieses Projekt ist selbst eine Android-Applikation die es ermöglicht die Statusbar zu manipulieren. Der Quellcode liegt offen auf Github, da für uns nur das verstecken der Leiste entscheidend war, haben wir anstatt die Applikation selbst zu nutzen, nur eine Klasse des Projekt in Verwendung.\url{http://ppareit.github.com/HideBar/}} entnommen und dient zum verstecken der Statusbar des Tablets. Um den Standbymodus und das blockieren des Touchscreens Zeitgesteuert zu verwalten, gibt es noch einen Service der eine BroadcastReceiver jede Minute aufruft. Wobei im Service ein partieller Wakelock aktiviert wird, damit das Tablet nie in den Tiefschlaf fällt. Im Receiver wird nach den ersten 5 Minuten der Touchscreen blockiert und ausserdem je nach Angaben des Zeitraums für den Standbymodus, das Tablet mit Hilfe der App ``ScreenOffAndLock'' in den Standbybetrieb versetzt und mithilfe eines ``Full Wakelocks'' in normal betrieb versetzt.
 
-Nun möchte ich noch mal genauer eine Code Abschnitte erläutern. Und zwar einmal allgemein das Starten der genutzten Applikation aus einer Activity und zweitens möchte ich ein wenig genauer erläutern wir der Standby \& NoTouch Service funktioniert.
+Ich möchte nun noch mal genauer einige Code Abschnitte erläutern. Und zwar einmal allgemein das Starten der genutzten Applikation aus einer Activity und zweitens möchte ich ein wenig genauer erläutern wir der Standby \& NoTouch Service funktioniert.\\
+\vspace{1cm} \hspace{1cm}
+Nun zum Starten einer Applikation aus einer Activity. Zuerst ist es sehr sinnvoll zu prüfen, ob die Applikation die man starten will auch auf dem Tablet vorhanden ist. Dazu benötigt man von der Applikation den \textit{PackageName} und außerdem den Pfad der Main-Activity.
 
-Nun zum Starten einer Applikation aus einer Activity. Zuerst ist es sehr Sinnvoll zu prüfen ob die Applikation die man Starten will auch auf dem Android-Gerät vorhanden ist. Dazu benötigt man von der Applikation den \textit{PackageName} und außerdem den Pfad der Main-Activity der zu startenden Applikation.
-
-Um die Prüfung nun durchzuführen habe ich mir eine kleine Funktion erstellt, die diese Überprüfung nun machen soll. Diese holt sich als erstes mittels des Paketnamen alle unter diesem Namen vorhandenen Activities und speichert sie in einem Array vom Typ \textbf{ActivityInfo}. Die einzelnen Activities werden dann mit der zu suchenden Activity verglichen. Falls sie gefunden wird, wird abgebrochen und ein TRUE zurückgegeben, ansonsten ein FALSE. Was dann einen Hinweis auslöst, der aussagt das die App nicht vorhanden ist.
+Um die Prüfung nun durchzuführen habe ich mir eine kleine Funktion erstellt. Diese holt sich als erstes mittels des Paketnamen alle unter diesem Namen vorhandenen Activities und speichert sie in einem Array vom Typ \textbf{ActivityInfo}. Die einzelnen Activities werden mit der zu suchenden Activity verglichen. Falls sie gefunden wird, folgt der Abbruch und ein TRUE wird zurückgegeben. Ansonsten wird ein FALSE zurückgegeben, was einen Hinweis auslöst, dass die Applikation nicht vorhanden ist.
 
 \begin{lstlisting}[caption={Application Available Function}\label{AppAvailFunction},captionpos=t,language=JAVA] 
 	static boolean isIntentAvailable(Context context, String pkgName, 
@@ -108,12 +108,28 @@ final boolean available = MainActivity.isIntentAvailable(context,
 			"com.katecca.screenofflock", "com.katecca.screenofflock.MainHelper");
 \end{lstlisting}
 
+Danach kann man in Abhängikeit vom vorherigen Rückgabewert die Applikation mittels eines erzeugten Intent Objekts mit dem Intentfilter auf die MAIN-Activity, einem Intent-Flag das bewirkt das ein neuer Task/Thread gestartet wird und dem \textit{ComponentName} was den Pfad der zu startenden Activity enthalten muss.
+\newpage
+Daraufhin kann mittels der \textit{startActivity()}-Methode die Applikation gestartet werden. Folgend sieht man den entsprechenden Quellcode am Beispiel der ScreenOff Applikation.
+\begin{lstlisting}[caption={Application Available Function Call}\label{AppAvailFunctionCall}, captionpos=t, language=JAVA] 
+if (available) {
+	Intent screenoff = new Intent("android.intent.action.MAIN");
+	screenoff.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	screenoff.setComponent(ComponentName
+				.unflattenFromString("com.katecca.screenofflock/.MainHelper"));
+	context.startActivity(screenoff);
+} else {
+	Toast.makeText(this, "Die ScreenOff App konnte nicht gefunden werden!",
+					Toast.LENGTH_LONG).show();
+}
+\end{lstlisting}
+\vspace{1cm} \hspace{1cm}
 Nun möchte ich zu einer näheren Erläuterung des Standby \& NoTouch Service kommen. Die Funktionalität die dieser Service bereitstellen soll ist einmal das Ein-/Ausschalten des Bildschirms zu vorher festgelegten Zeiten und außerdem soll der Service den Touchscreen sperren.
 
-Ein Service ist in Android dazu gedacht im Hintergrund Funktionen bereitzustellen. Dieser läuft auch nach dem Beenden einer Applikation weiter.
+Ein Service ist in Android ist dazu gedacht im Hintergrund Funktionen bereitzustellen. Dieser läuft auch nach dem Beenden einer Applikation weiter.
 
-Gestartet wird der Dienst über die \textit{MainActivity}, dort wird über einen Klick auf den ``Start Standby \& NoTouch Service'' der folgende Code zum starten aufgerufen:
-\newpage
+Gestartet wird der Dienst über die \textit{MainActivity}, dort wird über einen Klick auf ``Start Standby \& NoTouch Service'' der folgende Code zum starten aufgerufen:
+
 \begin{lstlisting}[caption={Start Service}\label{StartService}, captionpos=t, language=JAVA] 
 public void onClick(DialogInterface dialog, int which) {
 	Intent service = new Intent(context, StandbyNoTouchService.class);
@@ -121,15 +137,16 @@ public void onClick(DialogInterface dialog, int which) {
 }
 \end{lstlisting}
 
-Sobald der Service startet wird ein partieller WakeLock aktiviert, dieser bringt das Androidgerät dazu den CPU nie in den Tiefschlaf zu legen, damit der Service auch nach einer Stunde im Standby noch Aktionen ausführen kann. Wenn das Tablet im Tiefschlaf ist, kann der Service es nicht mehr erwecken und somit keine Aktionen ausführen. Folgender der Code startet diesen WakeLock:
+Sobald der Service startet wird ein partieller WakeLock aktiviert, dieser bringt das Tablet dazu den CPU nie in den Tiefschlaf zu legen, damit der Service auch nach einer Stunde im Standby noch Aktionen ausführen kann. Wenn das Tablet im Tiefschlaf ist, kann der Service es nicht mehr erwecken und somit keine Aktionen ausführen. Folgender Code startet diesen WakeLock:
 
 \begin{lstlisting}[caption={Activate partial WakeLock}\label{ActPartialWakeLock}, captionpos=t, language=JAVA]
 PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-PowerManager.WakeLock partialWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,"PARTIALWAKEUP");
+PowerManager.WakeLock partialWakeLock = pm.newWakeLock(
+							PowerManager.PARTIAL_WAKE_LOCK,"PARTIALWAKEUP");
 
 partialWakeLock.acquire();
 \end{lstlisting}
-
+\newpage
 Beim Beenden des Dienstes wird der WakeLock deaktiviert, was mit folgendem Aufruf realisiert wird:
 \begin{lstlisting}[caption={Deactivate partial WakeLock}\label{DeactPartialWakeLock}, captionpos=t, language=JAVA]
 if (partialWakeLock.isHeld()) {
@@ -137,11 +154,13 @@ if (partialWakeLock.isHeld()) {
 }
 \end{lstlisting}
 
-Im Service wird außerdem ein BroadcastReceiver gestartet. Solch ein Receiver bietet unter anderem die Möglichkeit ihn zum Beispiel jede Minute zu starten. Was in unserem Fall auch genutzt wird, der BroadcastReceiver führt bei jedem Starten einen Prüfung durch, ob die voreingestellte Ein-/Ausschaltzeit erreicht ist. Wenn die Einschaltzeit erreicht wird, löst der Receiver einen ``Full WakeLock'' aus, dieser bewirkt das wieder einschalten des Bildschirms und außerdem bei noch nicht gesperrten Touchscreen das Sperren. Der ``Full WakeLock'' wird ganz ähnlich dem Partiellen aufgerufen und auch wieder beendet, es werden nur andere Optionen verwendet.
+Im Service wird außerdem ein BroadcastReceiver gestartet. Solch ein Receiver bietet unter anderem die Möglichkeit ihn zum Beispiel jede Minute zu starten. Was in unserem Fall auch genutzt wird, der BroadcastReceiver führt bei jedem Start eine Prüfung durch, ob die voreingestellte Ein-/Ausschaltzeit erreicht ist. Wenn die Einschaltzeit erreicht wird, löst der Receiver einen ``Full WakeLock'' aus, dieser bewirkt das einschalten des Bildschirms und außerdem bei noch nicht gesperrten Touchscreen das Sperren. Der ``Full WakeLock'' wird ganz ähnlich dem Partiellen aufgerufen und auch wieder beendet, es werden nur andere Optionen verwendet.
 \begin{lstlisting}[caption={Activate full WakeLock}\label{DeactPartialWakeLock}, captionpos=t, language=JAVA]
-PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-PowerManager.WakeLock fullWakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
-						| PowerManager.ACQUIRE_CAUSES_WAKEUP, "FULLWAKEUP");
+PowerManager pm = (PowerManager) context.getSystemService(
+								                             Context.POWER_SERVICE);
+PowerManager.WakeLock fullWakeLock = pm.newWakeLock(
+					              PowerManager.FULL_WAKE_LOCK
+					            | PowerManager.ACQUIRE_CAUSES_WAKEUP, "FULLWAKEUP");
 						
 fullWakeLock.acquire();
 \end{lstlisting}
